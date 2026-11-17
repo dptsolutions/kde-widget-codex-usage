@@ -1,12 +1,12 @@
 import QtQuick 2.15
-import org.kde.kirigami 2.15 as Kirigami
+import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
     id: ring
     property var remaining: null
     property color ringColor: "#3b82f6"
-    property color trackColor: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g,
-                                       Kirigami.Theme.textColor.b, 0.25)
+    property color trackColor: Qt.rgba(PlasmaCore.Theme.textColor.r, PlasmaCore.Theme.textColor.g,
+                                       PlasmaCore.Theme.textColor.b, 0.25)
     implicitWidth: 72
     implicitHeight: 72
 
@@ -40,7 +40,7 @@ Item {
     Text {
         anchors.centerIn: parent
         text: ring.remaining === null ? "—" : ring.remaining + "%"
-        color: Kirigami.Theme.textColor
+        color: PlasmaCore.Theme.textColor
         font.pixelSize: Math.max(9, ring.width / 5.3)
         font.bold: true
     }

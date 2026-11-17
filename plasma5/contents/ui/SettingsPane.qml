@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 3.0 as PlasmaComponents
 import QtQuick.Dialogs 1.3
 
 ColumnLayout {
@@ -30,20 +31,20 @@ ColumnLayout {
     onVisibleChanged: if (visible) resetFromConfiguration()
     Component.onCompleted: if (visible) resetFromConfiguration()
 
-    Controls.Label { text: "Configure Codex usage"; font.bold: true; font.pixelSize: 18 }
-    Controls.Label { text: "Codex install path" }
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "Configure Codex usage"; font.bold: true; font.pixelSize: 18 }
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "Codex install path" }
     RowLayout {
         Layout.fillWidth: true
-        Controls.TextField {
+        PlasmaComponents.TextField {
             id: pathField
             Layout.fillWidth: true
             placeholderText: "Automatic discovery"
             onTextEdited: settings.errorText = ""
         }
-        Controls.Button { text: "Browse…"; onClicked: picker.open() }
+        PlasmaComponents.Button { text: "Browse…"; onClicked: picker.open() }
     }
-    Controls.Label { text: "refresh interval" }
-    Controls.ComboBox {
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "refresh interval" }
+    PlasmaComponents.ComboBox {
         id: intervalBox
         Layout.fillWidth: true
         textRole: "label"
@@ -61,22 +62,21 @@ ColumnLayout {
         ]
         Component.onCompleted: currentIndex = 4
     }
-    Controls.Label {
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor;
         visible: settings.errorText.length > 0
         text: settings.errorText
-        color: "#ef4444"
         wrapMode: Text.WordWrap
         Layout.fillWidth: true
     }
     RowLayout {
         Layout.alignment: Qt.AlignRight
-        Controls.Button { text: "Cancel"; onClicked: settings.cancelRequested() }
-        Controls.Button {
+        PlasmaComponents.Button { text: "Cancel"; onClicked: settings.cancelRequested() }
+        PlasmaComponents.Button {
             text: "Apply"
             enabled: settings.dirty && !settings.saving
             onClicked: settings.applyRequested(pathField.text.trim(), intervalBox.currentValue, false)
         }
-        Controls.Button {
+        PlasmaComponents.Button {
             text: "OK"
             enabled: !settings.saving
             onClicked: settings.applyRequested(pathField.text.trim(), intervalBox.currentValue, true)

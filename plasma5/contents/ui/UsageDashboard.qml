@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Controls 2.15 as Controls
+import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.plasma.components 3.0 as PlasmaComponents
 
 ColumnLayout {
     id: dashboard
@@ -26,7 +27,7 @@ ColumnLayout {
         return "Resets in " + mins + "m"
     }
 
-    Controls.Label {
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor;
         text: "Codex usage"
         visible: !dashboard.compact
         font.bold: true
@@ -47,11 +48,11 @@ ColumnLayout {
         rowSpacing: 6
         Layout.alignment: Qt.AlignHCenter
         Rectangle { width: 12; height: 12; radius: 3; color: "#3b82f6" }
-        Controls.Label { text: "5hr limit: " + (dashboard.fiveHour ? dashboard.fiveHour.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.fiveHour) }
+        PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "5hr limit: " + (dashboard.fiveHour ? dashboard.fiveHour.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.fiveHour) }
         Rectangle { width: 12; height: 12; radius: 3; color: "#a855f7" }
-        Controls.Label { text: "Weekly limit: " + (dashboard.weekly ? dashboard.weekly.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.weekly) }
+        PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "Weekly limit: " + (dashboard.weekly ? dashboard.weekly.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.weekly) }
     }
-    Controls.Label {
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor;
         visible: dashboard.status !== "ok"
         text: dashboard.status === "missing" ? "Codex is not installed" :
               dashboard.status === "auth" ? "Sign in to Codex to view usage" :
@@ -59,12 +60,12 @@ ColumnLayout {
         wrapMode: Text.WordWrap
         Layout.alignment: Qt.AlignHCenter
     }
-    Controls.Label {
+    PlasmaComponents.Label { color: PlasmaCore.Theme.textColor;
         visible: dashboard.status === "ok" && dashboard.stale && !dashboard.compact
         text: "Last update failed; showing saved usage"
         Layout.alignment: Qt.AlignHCenter
     }
-    Controls.Button {
+    PlasmaComponents.Button {
         visible: !dashboard.compact && dashboard.status === "missing"
         text: "Open settings"
         Layout.alignment: Qt.AlignHCenter
