@@ -24,7 +24,7 @@ Add **Codex usage** from Plasma's widget picker to a panel or the desktop. To up
 
 ## Settings
 
-Right-click the widget and select **Configure Codex usage**. Leave **Codex install path** empty to search `PATH`, `~/.local/bin/codex`, `~/.npm-global/bin/codex`, `/usr/local/bin/codex`, `/usr/bin/codex`, and `/usr/lib/chatgpt/resources/codex`. A custom path is used exclusively. **Apply** and **OK** check nonempty paths with `codex --version` before saving. The default refresh interval is one minute; the menu also offers 1, 5, 10, and 30 seconds; 5, 10, and 30 minutes; and one hour.
+Right-click the widget and select **Configure Codex usage**. Leave **Codex install path** empty to search `PATH`, `~/.local/bin/codex`, `~/.npm-global/bin/codex`, `/usr/local/bin/codex`, `/usr/bin/codex`, and `/usr/lib/chatgpt/resources/codex`. A custom path is used exclusively. Plasma saves the path when you select **Apply** or **OK**; the widget checks it with `codex --version` during refresh and reports a missing installation if it is invalid. The default refresh interval is one minute; the menu also offers 1, 5, 10, and 30 seconds; 5, 10, and 30 minutes; and one hour.
 
 The Python bridge runs in the user session and shares one Codex app-server process among widget instances. It listens on a private Unix socket under `XDG_RUNTIME_DIR` (or a private `/tmp` directory) and exits after ten minutes of inactivity. At most one usage read runs at a time; a refresh tick is skipped while a previous read is still pending.
 
