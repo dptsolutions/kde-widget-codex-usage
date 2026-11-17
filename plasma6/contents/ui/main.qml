@@ -1,5 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
+import org.kde.quickcharts as Charts
 import org.kde.kirigami as Kirigami
 import org.kde.plasma.core as PlasmaCore
 import org.kde.plasma.plasmoid
@@ -7,6 +8,7 @@ import org.kde.plasma.plasma5support as Plasma5Support
 
 PlasmoidItem {
     id: root
+    Charts.ColorGradientSource { id: defaultColors; baseColor: Kirigami.Theme.highlightColor; itemCount: 2 }
     property string status: "loading"
     property var fiveHour: null
     property var weekly: null
@@ -89,6 +91,8 @@ PlasmoidItem {
             compact: true
             compactSize: parent.height
             status: root.status
+            fiveHourColor: Plasmoid.configuration.fiveHourColor.a > 0 ? Plasmoid.configuration.fiveHourColor : defaultColors.colors[0]
+            weeklyColor: Plasmoid.configuration.weeklyColor.a > 0 ? Plasmoid.configuration.weeklyColor : defaultColors.colors[1]
             fiveHour: root.fiveHour
             weekly: root.weekly
             nowSeconds: root.nowSeconds
@@ -105,6 +109,8 @@ PlasmoidItem {
             anchors.fill: parent
             anchors.margins: Kirigami.Units.smallSpacing
             status: root.status
+            fiveHourColor: Plasmoid.configuration.fiveHourColor.a > 0 ? Plasmoid.configuration.fiveHourColor : defaultColors.colors[0]
+            weeklyColor: Plasmoid.configuration.weeklyColor.a > 0 ? Plasmoid.configuration.weeklyColor : defaultColors.colors[1]
             fiveHour: root.fiveHour
             weekly: root.weekly
             nowSeconds: root.nowSeconds

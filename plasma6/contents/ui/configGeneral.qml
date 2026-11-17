@@ -1,13 +1,20 @@
 import QtQuick
 import QtQuick.Layouts
+import org.kde.quickcharts as Charts
 import QtQuick.Controls as Controls
 import QtQuick.Dialogs
+import Qt.labs.platform as Platform
 import org.kde.kirigami as Kirigami
 
 Kirigami.FormLayout {
     id: page
     property alias cfg_codexPath: pathField.text
     property int cfg_refreshInterval: 60000
+    property color cfg_fiveHourColor: "transparent"
+    property color cfg_weeklyColor: "transparent"
+    Charts.ColorGradientSource { id: defaultColors; baseColor: Kirigami.Theme.highlightColor; itemCount: 2 }
+    readonly property color effectiveFiveHourColor: cfg_fiveHourColor.a > 0 ? cfg_fiveHourColor : defaultColors.colors[0]
+    readonly property color effectiveWeeklyColor: cfg_weeklyColor.a > 0 ? cfg_weeklyColor : defaultColors.colors[1]
     RowLayout {
         Kirigami.FormData.label: "Codex install path:"
         Controls.TextField { id: pathField; Layout.fillWidth: true; placeholderText: "Automatic discovery" }
@@ -27,6 +34,31 @@ Kirigami.FormLayout {
         ]
         currentIndex: Math.max(0, indexOfValue(page.cfg_refreshInterval))
         onActivated: page.cfg_refreshInterval = currentValue
+    }
+    Controls.Button {
+        id: fiveHourButton
+        Kirigami.FormData.label: "5hr Color:"
+        Layout.preferredWidth: 48
+        Accessible.name: "Choose 5hr color"
+        onClicked: { colorPicker.target = "five"; colorPicker.currentColor = page.effectiveFiveHourColor; colorPicker.open() }
+        Rectangle { anchors.centerIn: parent; width: 20; height: 20; color: page.effectiveFiveHourColor; border.color: parent.palette.mid }
+    }
+    Controls.Button {
+        id: weeklyButton
+        Kirigami.FormData.label: "Weekly Color:"
+        Layout.preferredWidth: 48
+        Accessible.name: "Choose weekly color"
+        onClicked: { colorPicker.target = "weekly"; colorPicker.currentColor = page.effectiveWeeklyColor; colorPicker.open() }
+        Rectangle { anchors.centerIn: parent; width: 20; height: 20; color: page.effectiveWeeklyColor; border.color: parent.palette.mid }
+    }
+    Platform.ColorDialog {
+        id: colorPicker
+        property string target: ""
+        title: "Choose chart color"
+        onAccepted: {
+            if (target === "five") page.cfg_fiveHourColor = color
+            else if (target === "weekly") page.cfg_weeklyColor = color
+        }
     }
     FileDialog {
         id: picker

@@ -3,6 +3,8 @@
   <kcfgfile name=""/>
   <group name="General">
     <entry name="codexPath" type="String"><default></default></entry>
+    <entry name="fiveHourColor" type="Color"><default>#00000000</default></entry>
+    <entry name="weeklyColor" type="Color"><default>#00000000</default></entry>
     <entry name="refreshInterval" type="Int"><default>60000</default></entry>
   </group>
 </kcfg>

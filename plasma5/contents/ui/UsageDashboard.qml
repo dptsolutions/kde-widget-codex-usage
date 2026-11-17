@@ -11,6 +11,8 @@ ColumnLayout {
     property string status: "loading"
     property var fiveHour: null
     property var weekly: null
+    property color fiveHourColor: "#3daee9"
+    property color weeklyColor: "#e9783d"
     property bool stale: false
     property int nowSeconds: 0
     signal settingsRequested()
@@ -41,8 +43,8 @@ ColumnLayout {
         visible: dashboard.status === "ok"
         Layout.alignment: Qt.AlignHCenter
         spacing: dashboard.compact ? Math.round(dashboard.compactSize * 0.25) : 30
-        Ring { compact: dashboard.compact; remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: "#3b82f6"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
-        Ring { compact: dashboard.compact; remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: "#a855f7"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
+        Ring { compact: dashboard.compact; remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: dashboard.fiveHourColor; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
+        Ring { compact: dashboard.compact; remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: dashboard.weeklyColor; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
     }
     GridLayout {
         visible: dashboard.status === "ok" && !dashboard.compact
@@ -50,9 +52,9 @@ ColumnLayout {
         columnSpacing: Kirigami.Units.smallSpacing
         rowSpacing: Kirigami.Units.smallSpacing
         Layout.alignment: Qt.AlignHCenter
-        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: "#3b82f6" }
+        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: dashboard.fiveHourColor }
         PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "5hr limit: " + (dashboard.fiveHour ? dashboard.fiveHour.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.fiveHour) }
-        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: "#a855f7" }
+        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: dashboard.weeklyColor }
         PlasmaComponents.Label { color: PlasmaCore.Theme.textColor; text: "Weekly limit: " + (dashboard.weekly ? dashboard.weekly.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.weekly) }
     }
     PlasmaComponents.Label { color: PlasmaCore.Theme.textColor;

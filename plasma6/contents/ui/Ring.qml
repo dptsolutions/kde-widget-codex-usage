@@ -8,7 +8,7 @@ ChartControls.PieChartControl {
     id: ring
     property var remaining: null
     property bool compact: false
-    property color ringColor: "#3b82f6"
+    property color ringColor: "#3daee9"
     implicitWidth: 72
     implicitHeight: 72
     leftPadding: 0
