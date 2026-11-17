@@ -1,46 +1,33 @@
 import QtQuick 2.15
+import QtQuick.Controls 2.15 as Controls
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.quickcharts 1.0 as Charts
+import org.kde.quickcharts.controls 1.0 as ChartControls
 
-Item {
+ChartControls.PieChartControl {
     id: ring
     property var remaining: null
     property color ringColor: "#3b82f6"
-    property color trackColor: Qt.rgba(0, 0, 0, 0.2)
     implicitWidth: 72
     implicitHeight: 72
+    leftPadding: 0
+    rightPadding: 0
+    topPadding: 0
+    bottomPadding: 0
 
-    Canvas {
-        id: canvas
-        anchors.fill: parent
-        renderTarget: Canvas.Image
-        onPaint: {
-            var ctx = getContext("2d")
-            ctx.reset()
-            ctx.lineWidth = Math.max(3, width / 11)
-            var radius = (Math.min(width, height) - ctx.lineWidth) / 2
-            ctx.lineCap = "round"
-            ctx.beginPath()
-            ctx.strokeStyle = ring.trackColor
-            ctx.arc(width / 2, height / 2, radius, 0, Math.PI * 2)
-            ctx.stroke()
-            if (ring.remaining !== null) {
-                ctx.beginPath()
-                ctx.strokeStyle = ring.ringColor
-                ctx.arc(width / 2, height / 2, radius, -Math.PI / 2,
-                        -Math.PI / 2 + Math.PI * 2 * ring.remaining / 100)
-                ctx.stroke()
-            }
-        }
-    }
-    onRemainingChanged: canvas.requestPaint()
-    onRingColorChanged: canvas.requestPaint()
-    onTrackColorChanged: canvas.requestPaint()
+    chart.smoothEnds: true
+    chart.fromAngle: -180
+    chart.toAngle: 180
+    chart.backgroundColor: Qt.rgba(0, 0, 0, 0.2)
+    range { from: 0; to: 100; automatic: false }
+    valueSources: Charts.SingleValueSource { value: ring.remaining === null ? 0 : ring.remaining }
+    chart.colorSource: Charts.SingleValueSource { value: ring.ringColor }
 
-    Text {
+    Controls.Label {
         anchors.centerIn: parent
+        width: Math.min(parent.width, parent.height) * 0.75
         text: ring.remaining === null ? "—" : ring.remaining + "%"
         color: PlasmaCore.Theme.textColor
-        width: ring.width * 0.75
         horizontalAlignment: Text.AlignHCenter
         fontSizeMode: Text.HorizontalFit
         minimumPointSize: 7

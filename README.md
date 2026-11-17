@@ -5,6 +5,7 @@ A panel and desktop widget that displays the remaining Codex 5-hour and weekly a
 ## Requirements
 
 - KDE Plasma 5.27 or Plasma 6, with the executable data engine (Plasma 6 uses `plasma5support`)
+- KDE Quick Charts QML modules (`org.kde.quickcharts` and `org.kde.quickcharts.controls`)
 - Python 3 (standard library only)
 - Codex CLI signed in with a ChatGPT account (`codex login`)
 
