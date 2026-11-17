@@ -81,11 +81,12 @@ PlasmoidItem {
     Component.onCompleted: fetchUsage()
 
     compactRepresentation: Item {
-        Layout.preferredWidth: root.status === "ok" ? 100 : 190
+        Layout.preferredWidth: root.status === "ok" ? height * 2 + Math.round(height * 0.25) : 190
         Layout.preferredHeight: 44
         UsageDashboard {
             anchors.centerIn: parent
             compact: true
+            compactSize: parent.height
             status: root.status
             fiveHour: root.fiveHour
             weekly: root.weekly

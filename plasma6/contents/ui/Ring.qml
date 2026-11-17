@@ -5,8 +5,7 @@ Item {
     id: ring
     property var remaining: null
     property color ringColor: "#3b82f6"
-    property color trackColor: Qt.rgba(Kirigami.Theme.textColor.r, Kirigami.Theme.textColor.g,
-                                       Kirigami.Theme.textColor.b, 0.25)
+    property color trackColor: Qt.rgba(0, 0, 0, 0.2)
     implicitWidth: 72
     implicitHeight: 72
 
@@ -17,8 +16,8 @@ Item {
         onPaint: {
             var ctx = getContext("2d")
             ctx.reset()
-            var radius = Math.min(width, height) / 2 - 5
-            ctx.lineWidth = Math.max(4, width / 11)
+            ctx.lineWidth = Math.max(3, width / 11)
+            var radius = (Math.min(width, height) - ctx.lineWidth) / 2
             ctx.lineCap = "round"
             ctx.beginPath()
             ctx.strokeStyle = ring.trackColor
@@ -41,7 +40,9 @@ Item {
         anchors.centerIn: parent
         text: ring.remaining === null ? "—" : ring.remaining + "%"
         color: Kirigami.Theme.textColor
-        font.pixelSize: Math.max(9, ring.width / 5.3)
-        font.bold: true
+        width: ring.width * 0.75
+        horizontalAlignment: Text.AlignHCenter
+        fontSizeMode: Text.HorizontalFit
+        minimumPointSize: 7
     }
 }

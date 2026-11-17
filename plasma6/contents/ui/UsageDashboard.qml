@@ -6,6 +6,7 @@ import org.kde.plasma.components as PlasmaComponents
 ColumnLayout {
     id: dashboard
     property bool compact: false
+    property real compactSize: 42
     property string status: "loading"
     property var fiveHour: null
     property var weekly: null
@@ -37,9 +38,9 @@ ColumnLayout {
     RowLayout {
         visible: dashboard.status === "ok"
         Layout.alignment: Qt.AlignHCenter
-        spacing: dashboard.compact ? 8 : 30
-        Ring { remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: "#3b82f6"; Layout.preferredWidth: dashboard.compact ? 42 : 92; Layout.preferredHeight: Layout.preferredWidth }
-        Ring { remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: "#a855f7"; Layout.preferredWidth: dashboard.compact ? 42 : 92; Layout.preferredHeight: Layout.preferredWidth }
+        spacing: dashboard.compact ? Math.round(dashboard.compactSize * 0.25) : 30
+        Ring { remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: "#3b82f6"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
+        Ring { remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: "#a855f7"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
     }
     GridLayout {
         visible: dashboard.status === "ok" && !dashboard.compact
