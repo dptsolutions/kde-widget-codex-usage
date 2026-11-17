@@ -39,8 +39,8 @@ ColumnLayout {
         visible: dashboard.status === "ok"
         Layout.alignment: Qt.AlignHCenter
         spacing: dashboard.compact ? Math.round(dashboard.compactSize * 0.25) : 30
-        Ring { remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: "#3b82f6"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
-        Ring { remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: "#a855f7"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
+        Ring { compact: dashboard.compact; remaining: dashboard.fiveHour ? dashboard.fiveHour.remaining : null; ringColor: "#3b82f6"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
+        Ring { compact: dashboard.compact; remaining: dashboard.weekly ? dashboard.weekly.remaining : null; ringColor: "#a855f7"; Layout.preferredWidth: dashboard.compact ? dashboard.compactSize : 92; Layout.preferredHeight: Layout.preferredWidth }
     }
     GridLayout {
         visible: dashboard.status === "ok" && !dashboard.compact

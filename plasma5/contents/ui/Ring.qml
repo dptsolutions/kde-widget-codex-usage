@@ -1,12 +1,14 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15 as Controls
 import org.kde.plasma.core 2.0 as PlasmaCore
+import org.kde.kirigami 2.15 as Kirigami
 import org.kde.quickcharts 1.0 as Charts
 import org.kde.quickcharts.controls 1.0 as ChartControls
 
 ChartControls.PieChartControl {
     id: ring
     property var remaining: null
+    property bool compact: false
     property color ringColor: "#3b82f6"
     implicitWidth: 72
     implicitHeight: 72
@@ -29,6 +31,7 @@ ChartControls.PieChartControl {
         text: ring.remaining === null ? "—" : ring.remaining + "%"
         color: PlasmaCore.Theme.textColor
         horizontalAlignment: Text.AlignHCenter
+        font: ring.compact ? Kirigami.Theme.smallFont : Kirigami.Theme.defaultFont
         fontSizeMode: Text.HorizontalFit
         minimumPointSize: 7
     }

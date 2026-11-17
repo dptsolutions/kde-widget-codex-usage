@@ -7,6 +7,7 @@ import org.kde.quickcharts.controls as ChartControls
 ChartControls.PieChartControl {
     id: ring
     property var remaining: null
+    property bool compact: false
     property color ringColor: "#3b82f6"
     implicitWidth: 72
     implicitHeight: 72
@@ -29,6 +30,7 @@ ChartControls.PieChartControl {
         text: ring.remaining === null ? "—" : ring.remaining + "%"
         color: Kirigami.Theme.textColor
         horizontalAlignment: Text.AlignHCenter
+        font: ring.compact ? Kirigami.Theme.smallFont : Kirigami.Theme.defaultFont
         fontSizeMode: Text.HorizontalFit
         minimumPointSize: 7
     }
