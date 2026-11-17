@@ -1,0 +1,13 @@
+{
+  "KPlugin": {
+    "Id": "org.codex.usage",
+    "Name": "Codex usage",
+    "Description": "Codex five-hour and weekly usage",
+    "Icon": "view-statistics",
+    "Category": "System Information",
+    "Version": "0.1.0",
+    "License": "MIT"
+  },
+  "KPackageStructure": "Plasma/Applet",
+  "X-Plasma-API": "declarativeappletscript"
+}
