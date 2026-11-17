@@ -13,7 +13,7 @@ ColumnLayout {
     property bool stale: false
     property int nowSeconds: 0
     signal settingsRequested()
-    spacing: compact ? 2 : 12
+    spacing: compact ? 2 : 18
 
     function resetText(item) {
         if (!item || !item.resets_at) return "Reset time unavailable"
@@ -28,12 +28,13 @@ ColumnLayout {
         return "Resets in " + mins + "m"
     }
 
-    PlasmaComponents.Label { color: Kirigami.Theme.textColor;
+    Kirigami.Heading {
+        color: Kirigami.Theme.textColor
         text: "Codex usage"
         visible: !dashboard.compact
-        font.bold: true
-        font.pixelSize: 18
-        Layout.alignment: Qt.AlignHCenter
+        level: 2
+        Layout.fillWidth: true
+        horizontalAlignment: Text.AlignHCenter
     }
     RowLayout {
         visible: dashboard.status === "ok"
@@ -45,12 +46,12 @@ ColumnLayout {
     GridLayout {
         visible: dashboard.status === "ok" && !dashboard.compact
         columns: 2
-        columnSpacing: 18
-        rowSpacing: 6
+        columnSpacing: Kirigami.Units.smallSpacing
+        rowSpacing: Kirigami.Units.smallSpacing
         Layout.alignment: Qt.AlignHCenter
-        Rectangle { width: 12; height: 12; radius: 3; color: "#3b82f6" }
+        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: "#3b82f6" }
         PlasmaComponents.Label { color: Kirigami.Theme.textColor; text: "5hr limit: " + (dashboard.fiveHour ? dashboard.fiveHour.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.fiveHour) }
-        Rectangle { width: 12; height: 12; radius: 3; color: "#a855f7" }
+        Rectangle { Layout.preferredWidth: Kirigami.Units.smallSpacing; Layout.fillHeight: true; color: "#a855f7" }
         PlasmaComponents.Label { color: Kirigami.Theme.textColor; text: "Weekly limit: " + (dashboard.weekly ? dashboard.weekly.remaining + "%" : "Unavailable") + " · " + dashboard.resetText(dashboard.weekly) }
     }
     PlasmaComponents.Label { color: Kirigami.Theme.textColor;
